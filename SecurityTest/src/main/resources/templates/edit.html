@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>New</title>
+</head>
+<body>
+<div align="center">
+    <form action="#" th:action="@{/save}" th:object = "${dong}" method="post">
+        <table border="1" cellpadding="5">
+            <tr>
+                <td>ID</td>
+                <td>
+                    <input type="text" th:field="*{id}">
+                </td>
+            </tr>
+            <tr>
+                <td>User Name</td>
+                <td>
+                    <input type="text" th:field="*{username}">
+                </td>
+            </tr>
+            <tr>
+                <td>Address</td>
+                <td>
+                    <input type="text" th:field="*{address}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>
+                    <input type="text" th:field="*{email}">
+                </td>
+            </tr>
+            <tr>
+                <td>Name Product</td>
+                <td>
+                    <input type="text" th:field = "*{nameproduct}">
+                </td>
+            </tr>
+            <tr>
+                <td>Price</td>
+                <td>
+                    <input type="text" th:field=" *{price}">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <button>Save</button>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

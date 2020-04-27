@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"
+    xmlns:sec = "https://www.thymeleaf.org/thymeleaf-extras-security5">
+<head>
+    <meta charset="UTF-8">
+    <title>welcome</title>
+</head>
+<body>
+<div align="center">
+    <div>
+        <a style="color:red; text-decoration: none" href="/new">New Product</a>
+        <br>
+    </div>
+    <div>
+        <form action="search" method="get">
+            <input type="text" placeholder="Search ..." name="keyword"><br>
+            <input type="submit" value="Search"/>
+        </form>
+        <br>
+        <h1>Management Product</h1>
+        <br>
+        <table border="1" cellpadding="5">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>User Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Name Product</th>
+                <th>Price</th>
+                <th sec:authorize = "hasRole('ADMIN')">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="u : ${dong}">
+                <td th:text = ${u.id}></td>
+                <td th:text = ${u.username}></td>
+                <td th:text = ${u.address}></td>
+                <td th:text =${u.email}></td>
+                <td th:text = ${u.nameproduct}></td>
+                <td th:text = ${u.price}></td>
+                <td sec:authorize = "hasRole('ADMIN')">
+                    <a th:href="@{'/edit/'+${u.id}}">Edit</a>
+                    &nbsp;&nbsp;
+                    <a th:href="@{'/delete/'+${u.id}}">Delete</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        &nbsp;
+    </div>
+    <div>
+        Total Items : [[${totalitems}]] - Page : [[${currentPages}]] of [[${totalpages}]]
+        &nbsp;- &nbsp;
+        <a th:if="${currentPages > 1}" th:href="@{/page/1}">First</a>
+        <span th:unless="${currentPages > 1}">First</span>
+        &nbsp;&nbsp;
+        <a th:if="${currentPages > 1}" th:href="@{'/page/' + ${currentPages - 1}}">Previous</a>
+        <span th:unless="${currentPages > 1}">Previous</span>
+        &nbsp;&nbsp;
+        <span th:each = "i : ${#numbers.sequence(1 , totalpages)}">
+            <a th:if="${i != currentPages}" th:href="@{'/page/' + ${i}}">[[${i}]]</a>
+            <span th:unless="${i != currentPages}">[[${i}]]</span> &nbsp;&nbsp;
+        </span>
+        &nbsp;
+        <a th:if="${currentPages < totalpages}" th:href="@{'/page/' + ${currentPages + 1}}">Next</a>
+        <span th:unless="${currentPages < totalpages}">Next</span>
+        &nbsp;
+        <a th:if="${currentPages < totalpages}" th:href="@{'/page/' + ${totalpages}}">Last</a>
+        <span th:unless="${currentPages < totalpages}">Last</span>
+    </div>
+</div>
+</body>
+</html>
